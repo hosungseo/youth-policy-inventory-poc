@@ -14,7 +14,7 @@ export default function Method({ data }: { data: Dataset }) {
 
       <Section title="데이터">
         <ul className="plain">
-          <li>온통청년 공개 정책검색 결과 {fmt(summary.total)}건 ({summary.stamp} 수집). 화면 첫 표시 건수(약 3,981건)와 차이가 있으며, 검색 색인에 포함되지 않은 등록분으로 추정됩니다.</li>
+          <li>온통청년 공개 정책검색 결과 {fmt(summary.total)}건 ({summary.stamp} 수집). 온통청년 검색 화면에 표시되는 건수와 같습니다(지역 필터 결과도 일치 확인).</li>
           <li>공공데이터포털 「행정안전부_대한민국 공공서비스(혜택) 정보」 목록·상세·지원조건 각 {fmt(summary.gov24Total)}건.</li>
           <li>담당자 성명·연락처, 등록·수정자 관련 항목은 수집 즉시 제외했고 이 사이트에 싣지 않았습니다.</li>
         </ul>
