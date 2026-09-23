@@ -41,6 +41,10 @@ export default function App() {
       <div className="poc-banner">
         비공식 개념검증(PoC) · 공개 데이터 기반 · 실제 온통청년·보조금24 서비스가 아닙니다
       </div>
+      <div className="successor-note" role="note">
+        이 화면은 첫 개념검증입니다. 정책마다 번호·자격·예산을 이은 최신 시제품은{" "}
+        <a href="https://hosungseo.github.io/youth-ledger/">청년대장</a>에서 볼 수 있습니다.
+      </div>
       <header className="site-header">
         <div className="wrap header-inner">
           <a className="brand" href="#/diagnosis">
