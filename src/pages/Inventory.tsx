@@ -176,7 +176,8 @@ function Detail({ p, onClose }: { p: Policy; onClose: () => void }) {
           {fields.map((f) => (
             <li key={f.key} className={f.ok ? 'ok' : 'no'}>
               <span>{f.ok ? '✓' : '—'}</span>{f.key}
-              {!f.ok && ['예산', '수혜실적', '성과지표'].includes(f.key) && <small>현재 등록 항목 없음</small>}
+              {!f.ok && ['수혜실적', '성과지표'].includes(f.key) && <small>현재 등록 항목 없음</small>}
+              {!f.ok && f.key === '예산' && <small>연결된 재정사업 없음</small>}
             </li>
           ))}
         </ul>
@@ -216,6 +217,30 @@ function Detail({ p, onClose }: { p: Policy; onClose: () => void }) {
           <p className="drawer-text muted">
             자동 매칭으로 대응하는 보조금24 서비스를 찾지 못했습니다. 현금·바우처형이면 보조금24 등록 대상, 참여·행사형이면 인벤토리에만 두고 유형을 표시합니다.
           </p>
+        )}
+
+        <h4>재정사업 연결 (지방재정365·열린재정)</h4>
+        {p.fiscal ? (
+          <>
+            <p className="drawer-text">
+              예산현액 <b>{fmt(Math.round(p.fiscal.bdg / 1e8 * 10) / 10)}억 원</b> · 집행 {fmt(Math.round(p.fiscal.ep / 1e8 * 10) / 10)}억 원
+              ({p.fiscal.bdg ? ((p.fiscal.ep / p.fiscal.bdg) * 100).toFixed(1) : '-'}%) · 세부사업 {p.fiscal.n}개
+            </p>
+            <table className="compare">
+              <tbody>
+                {p.fiscal.items.map((it, i) => (
+                  <tr key={i}>
+                    <td><Chip tone={it.side === '중앙' ? 'info' : 'muted'}>{it.side}</Chip> {it.nm}<br /><small className="muted">{it.org}</small></td>
+                    <td className="num">{fmt(Math.round(it.bdg / 1e6) / 100)}억</td>
+                    <td className="num">{it.bdg ? ((it.ep / it.bdg) * 100).toFixed(0) : '-'}%</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <p className="footnote">자동 연결 추정치입니다. 한 정책을 광역·시군이 나눠 편성한 경우 여러 세부사업이 붙습니다.</p>
+          </>
+        ) : (
+          <p className="drawer-text muted">이름이 대응하는 청년 세부사업을 찾지 못했습니다. 인벤토리에서는 등록기관이 재정사업 코드를 직접 입력합니다.</p>
         )}
 
         <h4>등록 정보</h4>

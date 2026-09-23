@@ -3,12 +3,14 @@ import { useDataset } from './data'
 import Diagnosis from './pages/Diagnosis'
 import Inventory from './pages/Inventory'
 import Overlap from './pages/Overlap'
+import Fiscal from './pages/Fiscal'
 import Design from './pages/Design'
 import Method from './pages/Method'
 
 const TABS = [
   { id: 'diagnosis', label: '진단' },
   { id: 'inventory', label: '인벤토리' },
+  { id: 'fiscal', label: '재정 연계' },
   { id: 'overlap', label: '중복·사각지대' },
   { id: 'design', label: '설계안' },
   { id: 'method', label: '방법·한계' },
@@ -64,6 +66,7 @@ export default function App() {
         {!data && !error && <p className="notice">데이터를 불러오는 중…</p>}
         {data && tab === 'diagnosis' && <Diagnosis data={data} />}
         {data && tab === 'inventory' && <Inventory data={data} />}
+        {data && tab === 'fiscal' && <Fiscal data={data} />}
         {data && tab === 'overlap' && <Overlap data={data} />}
         {data && tab === 'design' && <Design data={data} />}
         {data && tab === 'method' && <Method data={data} />}
@@ -71,7 +74,7 @@ export default function App() {
       <footer className="site-footer">
         <div className="wrap">
           <p>
-            자료: 온통청년 공개 정책검색({data?.summary.stamp ?? '2026-09-23'} 수집), 공공데이터포털 「행정안전부_대한민국 공공서비스(혜택) 정보」.
+            자료: 온통청년 공개 정책검색({data?.summary.stamp ?? '2026-09-23'} 수집), 공공데이터포털 「행정안전부_대한민국 공공서비스(혜택) 정보」, 지방재정365 세부사업별 세출현황, 열린재정 세부사업 일별 집행현황.
             담당자 성명·연락처 등 개인 관련 항목은 싣지 않았습니다.
           </p>
           <p>매칭 결과는 자동 추정치이며 행정기관의 공식 입장이 아닙니다.</p>

@@ -38,6 +38,7 @@ export type Policy = {
   views: number | null
   types: string[]
   g24?: Gov24Link
+  fiscal?: { bdg: number; ep: number; n: number; items: { side: '지방' | '중앙'; nm: string; org: string; bdg: number; ep: number; asof: string }[] }
   diff?: { age: boolean; inc: boolean; ageKind: string | null; incKind: string | null; incOn: number | null; incG24: number | null }
 }
 
@@ -70,4 +71,22 @@ export type Summary = {
   oldCat: number
   clusters: Record<string, Record<string, number>>
   precision?: { high: number; mid: number; sample: number }
+}
+
+export type FiscalAgg = { n: number; linked: number; bdg: number; bdgLinked: number; ep: number }
+
+export type Fiscal = {
+  asofLocal: string
+  asofCentral: string
+  local: FiscalAgg
+  localSupport: FiscalAgg
+  central: FiscalAgg
+  centralInclusive: FiscalAgg
+  bySido: Record<string, FiscalAgg & { support: FiscalAgg }>
+  byKind: Record<string, FiscalAgg>
+  central_rows: { nm: string; unit: string | null; org: string; tier: number; bdg: number; ep: number; link: string | null; linkType: string | null; linkNm: string | null; note: string }[]
+  local_unlinked: { nm: string; org: string; sido: string; field: string; kind: string; bdg: number; ep: number; gukbi: boolean; cand: string | null }[]
+  onthongWithBudget: number
+  estimate: { absentShare: number; ci: number[]; absentBudgetShare: number; ciBudget: number[]; sample: number; population: number }
+  accuracy: { presence: number; absence: number; strict: number; sample: number }
 }

@@ -1,8 +1,8 @@
 declare const __BUILD_ID__: string
 import { useEffect, useState } from 'react'
-import type { Gov24Only, Policy, Summary } from './types'
+import type { Fiscal, Gov24Only, Policy, Summary } from './types'
 
-export type Dataset = { policies: Policy[]; gov24Only: Gov24Only[]; summary: Summary }
+export type Dataset = { policies: Policy[]; gov24Only: Gov24Only[]; summary: Summary; fiscal: Fiscal }
 
 async function getJson<T>(path: string): Promise<T> {
   const res = await fetch(`${import.meta.env.BASE_URL}data/${path}?v=${__BUILD_ID__}`)
@@ -17,12 +17,13 @@ export function useDataset() {
   useEffect(() => {
     const load = async () => {
       try {
-        const [policies, gov24Only, summary] = await Promise.all([
+        const [policies, gov24Only, summary, fiscal] = await Promise.all([
           getJson<Policy[]>('policies.json'),
           getJson<Gov24Only[]>('gov24_only.json'),
           getJson<Summary>('summary.json'),
+          getJson<Fiscal>('fiscal.json'),
         ])
-        setData({ policies, gov24Only, summary })
+        setData({ policies, gov24Only, summary, fiscal })
       } catch (err) {
         setError(err instanceof Error ? err.message : String(err))
       }
@@ -52,7 +53,7 @@ export function completeness(p: Policy) {
     { key: '자격조건(표준코드)', ok: !!p.g24 },
     { key: '신청 경로', ok: !!p.url || !!p.g24 },
     { key: '지원규모', ok: p.scale != null },
-    { key: '예산', ok: false },
+    { key: '예산', ok: !!p.fiscal },
     { key: '수혜실적', ok: false },
     { key: '성과지표', ok: false },
   ]
