@@ -31,7 +31,7 @@ export default function Method({ data }: { data: Dataset }) {
       <Section title="정확도 검증">
         {pr ? (
           <p>
-            점수 구간별로 층화한 표본 {fmt(pr.sample)}쌍을 서로 다른 관점(동일성 판정 · 차이 적발)의 검토자 둘이 점수를 보지 않고 판정했고(일치율 94%), 엇갈린 12쌍은 원문을 대조해 확정했습니다.
+            점수 구간별로 층화한 표본 {fmt(pr.sample)}쌍을 AI가 서로 다른 관점(동일성 판정 · 차이 적발)으로 두 번, 점수를 보지 않고 판정했고(일치율 94%), 엇갈린 12쌍은 원문을 대조해 확정했습니다. 사람이 직접 확인한 표본은 아직 없습니다.
             그 결과 점수 0.8 이상(‘높음’)은 약 {pr.high}%, 0.7~0.8(‘중간’)은 약 {pr.mid}%가 올바른 연결이었습니다. ‘중간’에는 시·군 집행 사업을 광역·중앙의 상위 서비스에 잇는 경우가 많습니다.
             0.7 미만은 정밀도가 50% 안팎으로 떨어져 연결로 세지 않았고, 그중 0.6~0.7 구간 {fmt(summary.reviewCandidates ?? 0)}건은 등록기관 확인 후보로 남겨 두었습니다.
           </p>
@@ -46,7 +46,7 @@ export default function Method({ data }: { data: Dataset }) {
           <li>중앙: 열린재정 세부사업 일별 집행현황({data.fiscal.asofCentral} 기준)에서 세부·단위·프로그램명에 ‘청년’이 들어간 사업과, 국가장학금처럼 청년이 주 대상인 사업을 골라 온통청년과 한 건씩 대조했습니다.</li>
           <li>한 정책을 광역·시군이 나눠 편성하거나(도비·시군비), 이월분이 따로 잡히면 여러 세부사업이 한 정책에 붙습니다. 사업 성격은 이름으로 ‘대상자 지원’과 ‘기반·운영’을 나눈 추정입니다.</li>
           <li>
-            지방 자동 판정은 층화 표본 {fmt(data.fiscal.accuracy.sample)}건을 두 검토자(연결 판정 · 누락 적발과 온통청년 전체 재검색)가 판정한 결과로 보정했습니다. ‘있음/없음’ 판정은 각각 약 {data.fiscal.accuracy.presence}%·{data.fiscal.accuracy.absence}%가 맞았고,
+            지방 자동 판정은 층화 표본 {fmt(data.fiscal.accuracy.sample)}건을 AI가 두 관점(연결 판정 · 누락 적발과 온통청년 전체 재검색)으로 판정한 결과로 보정했습니다. ‘있음/없음’ 판정은 각각 약 {data.fiscal.accuracy.presence}%·{data.fiscal.accuracy.absence}%가 맞았고,
             정책별 예산 연결(이름·지역 일치 엄격 기준)은 약 {data.fiscal.accuracy.strict}%가 맞았습니다. ‘온통청년에 없는 비율’은 표본을 점수 구간별 모집단 크기로 가중해 추정했습니다(약 {data.fiscal.estimate.absentShare}%, 95% 구간 {data.fiscal.estimate.ci[0]}~{data.fiscal.estimate.ci[1]}%).
           </li>
         </ul>

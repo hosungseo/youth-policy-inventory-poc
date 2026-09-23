@@ -191,6 +191,32 @@
  "gov24Total": 10933,
  "gov24Youth": 1058,
  "gov24YouthUnmatched": 834,
+ "gov24Absence": {
+  "population": 834,
+  "sample": 60,
+  "labels": {
+   "related": 11,
+   "absent": 41,
+   "present": 8
+  },
+  "notYouth": 23,
+  "youthTargetedShare": 65.6,
+  "youthTargetedCi": [
+   52.0,
+   78.7
+  ],
+  "absentAmongYouth": 62.2,
+  "absentAmongYouthCi": [
+   45.1,
+   79.1
+  ],
+  "absentYouthN": 340,
+  "absentYouthNCi": [
+   229,
+   456
+  ],
+  "missedByMatcher": 8
+ },
  "match": {
   "all": {
    "n": 2914,

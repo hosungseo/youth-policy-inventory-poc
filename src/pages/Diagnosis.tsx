@@ -35,7 +35,7 @@ export default function Diagnosis({ data }: { data: Dataset }) {
       <Section title="지금 온통청년 데이터로 알 수 있는 것과 없는 것" lead={`공개 정책검색 결과 ${fmt(n)}건 전수 분석 (${summary.stamp} 기준)`}>
         <div className="stat-grid">
           <Stat tone="warn" value={pct(open, n)} label="지금 신청할 수 있는 정책" note={`상시·진행중 ${fmt(open)}건, 나머지는 마감`} />
-          <Stat tone="warn" value={pct(noUrl, n)} label="신청 경로(URL) 미기재" note={`${fmt(noUrl)}건 — 어디서 신청하는지 알 수 없음`} />
+          <Stat tone="warn" value={pct(noUrl, n)} label="신청 바로가기(URL) 항목이 빔" note={`${fmt(noUrl)}건 — 신청방법은 대부분 글로만 적혀 있어 자동 연결이 안 됨`} />
           <Stat tone="warn" value={pct(noScale, n)} label="지원규모 미기재(공란·0)" note={`${fmt(noScale)}건`} />
           <Stat tone="warn" value="0개" label="예산·수혜실적·성과 항목" note="등록 항목 자체가 없음" />
           <Stat tone="warn" value={pct(g24Link, n)} label="보조금24 서비스와 직접 연결" note={`${fmt(g24Link)}건만 링크로 연결`} />
@@ -62,9 +62,11 @@ export default function Diagnosis({ data }: { data: Dataset }) {
           />
           <Stat
             tone="good"
-            value={fmt(summary.gov24YouthUnmatched)}
-            label="온통청년에서 안 보이는 보조금24 청년 서비스"
-            note={`보조금24 청년 관련 ${fmt(summary.gov24Youth)}건 중 온통청년 미연결`}
+            value={summary.gov24Absence ? `약 ${fmt(summary.gov24Absence.absentYouthN)}` : fmt(summary.gov24YouthUnmatched)}
+            label="온통청년에 없는 보조금24 청년 대상 서비스(추정)"
+            note={summary.gov24Absence
+              ? `청년 관련 ${fmt(summary.gov24Youth)}건 중 자동 미연결 ${fmt(summary.gov24YouthUnmatched)}건 → 표본 ${summary.gov24Absence.sample}건 수기 검토: 약 1/3은 청년이 주 대상 아님, 청년 대상 중 ${Math.round(summary.gov24Absence.absentAmongYouth)}%가 온통청년에 없음(95% 구간 ${fmt(summary.gov24Absence.absentYouthNCi[0])}~${fmt(summary.gov24Absence.absentYouthNCi[1])}건)`
+              : `보조금24 청년 관련 ${fmt(summary.gov24Youth)}건 중 온통청년 미연결`}
           />
         </div>
 

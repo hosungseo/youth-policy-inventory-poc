@@ -63,6 +63,7 @@ export type Summary = {
   gov24Total: number
   gov24Youth: number
   gov24YouthUnmatched: number
+  gov24Absence?: { population: number; sample: number; notYouth: number; youthTargetedShare: number; absentAmongYouth: number; absentYouthN: number; absentYouthNCi: [number, number] }
   match: { all: Rate; 중앙: Rate; 지자체: Rate }
   matchByCat: Record<string, Rate>
   matchBySido: Record<string, Rate>
